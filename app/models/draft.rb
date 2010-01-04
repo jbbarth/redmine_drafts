@@ -8,7 +8,7 @@ class Draft < ActiveRecord::Base
                       :user_id => user.id,
                       :element_type => "Issue",
                       :element_id => issue.id,
-                      :lock_version => version.to_i
+                      :lock_version => version
       })
     end
   end
