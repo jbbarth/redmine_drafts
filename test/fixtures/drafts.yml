@@ -1,0 +1,12 @@
+one:
+  id: 1
+  element_type: Issue
+  element_id: 1
+  user_id: 1
+  content: MyText
+two:
+  id: 2
+  element_type: Issue
+  element_id: 2
+  user_id: 1
+  content: MyText
