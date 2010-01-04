@@ -1,5 +1,7 @@
 require 'redmine'
 
+require 'drafts_issue_hook'
+
 config.to_prepare do
   require_dependency 'issue_patch'
 end

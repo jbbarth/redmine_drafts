@@ -1,0 +1,16 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'drafts', :plugin => :redmine_drafts %>
+<% end %>
+
+<% unless @issue.new_record? || User.current.anonymous? %>
+  <%= observe_form :"issue-form",
+                   :url => drafts_path(:user_id => User.current.id, :issue_id => @issue.id),
+                   :method => :post,
+                   :update => :"draft-status",
+                   :frequency => 15,
+                   :complete => "Effect.Appear('draft-status');"
+                   #:complete => "Element.show('draft-status'); Effect.Pulsate('draft-status',{pulses:1})"
+                 %>
+<% end %>
+
+<div id="draft-status" style="display:none;"></div>
