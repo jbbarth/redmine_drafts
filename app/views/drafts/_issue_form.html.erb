@@ -4,7 +4,10 @@
 
 <% unless @issue.new_record? || User.current.anonymous? %>
   <%= observe_form :"issue-form",
-                   :url => drafts_path(:user_id => User.current.id, :issue_id => @issue.id),
+                   :url => drafts_path(:user_id => User.current.id,
+                                       :issue_id => @issue.id,
+                                       :lock_version => @issue.lock_version
+                                      ),
                    :method => :post,
                    :update => :"draft-status",
                    :frequency => 15,
