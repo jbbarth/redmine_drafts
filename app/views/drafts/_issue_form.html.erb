@@ -8,7 +8,7 @@
                    :method => :post,
                    :update => :"draft-status",
                    :frequency => 15,
-                   :complete => "Effect.Appear('draft-status');"
+                   :complete => "if (!Element.empty('draft-status')) { Element.hide('draft-pending'); Effect.Appear('draft-status'); }"
                    #:complete => "Element.show('draft-status'); Effect.Pulsate('draft-status',{pulses:1})"
                  %>
 <% end %>
