@@ -2,7 +2,7 @@ class DraftsController < ApplicationController
   unloadable
 
   def create
-    if request.xhr?
+    if request.xhr? && !params[:issue][:notes].blank?
       @issue = Issue.find(params[:issue_id])
       lock_version = params[:issue][:lock_version].to_i
       @user = User.find(params[:user_id])
