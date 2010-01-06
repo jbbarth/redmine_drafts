@@ -5,13 +5,13 @@
     <%= l(:label_draft_pending,
           {:time => time_tag(draft.updated_at),
           :restore => link_to_remote(l(:label_draft_restore),
-                        draft_path(draft),
+                        :url => restore_draft_path(draft),
                         :method => :put,
                         :success => "Element.hide('draft-pending');"),
           :delete => link_to_remote(l(:label_draft_delete),
-                        draft_path(draft),
+                        :url => draft_path(draft),
                         :method => :delete,
-                        :success => "Element.hide('draft-pending');")
+                        :success => "Effect.Fade('draft-pending');")
           }
         ) %>
   </td>

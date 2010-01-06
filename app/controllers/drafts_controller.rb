@@ -18,4 +18,10 @@ class DraftsController < ApplicationController
       render :nothing => true
     end
   end
+
+  def destroy
+    @draft = Draft.find(params[:id])
+    @draft.destroy
+    render :nothing => true
+  end
 end
