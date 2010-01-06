@@ -8,6 +8,7 @@ class DraftsController < ApplicationController
       @user = User.find(params[:user_id])
       @draft = Draft.find_for_issue(@issue,@user,version)
       @draft ||= Draft.create(:user => @user, :element => @issue, :element_lock_version => version)
+      @draft.content = params.reject{|k,v| !%w(issue notes).include?(k)}
       if @draft.save
         render :partial => "saved", :layout => false
       else
