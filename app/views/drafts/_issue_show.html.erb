@@ -1,4 +1,19 @@
-<% draft = Draft.find_for_issue(@issue,User.current) %>
+<% draft = Draft.find_for_issue(@issue,User.current,@issue.lock_version) %>
 <% if draft %>
-  Yeehaa you have a draft !
+<tr id="draft-pending">
+  <td colspan="4" class="draft">
+    <%= l(:label_draft_pending,
+          {:time => time_tag(draft.updated_at),
+          :restore => link_to_remote(l(:label_draft_restore),
+                        draft_path(draft),
+                        :method => :put,
+                        :success => "Element.hide('draft-pending');"),
+          :delete => link_to_remote(l(:label_draft_delete),
+                        draft_path(draft),
+                        :method => :delete,
+                        :success => "Element.hide('draft-pending');")
+          }
+        ) %>
+  </td>
+</tr>
 <% end %>
