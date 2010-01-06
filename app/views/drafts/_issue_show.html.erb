@@ -4,10 +4,9 @@
   <td colspan="4" class="draft">
     <%= l(:label_draft_pending,
           {:time => time_tag(draft.updated_at),
-          :restore => link_to_remote(l(:label_draft_restore),
-                        :url => restore_draft_path(draft),
-                        :method => :put,
-                        :success => "Element.hide('draft-pending');"),
+          :restore => link_to(l(:label_draft_restore),
+                        restore_draft_path(draft),
+                        :method => :put),
           :delete => link_to_remote(l(:label_draft_delete),
                         :url => draft_path(draft),
                         :method => :delete,

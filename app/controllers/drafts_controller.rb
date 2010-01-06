@@ -19,6 +19,11 @@ class DraftsController < ApplicationController
     end
   end
 
+  def restore
+    @draft = Draft.find(params[:id])
+    redirect_to({:controller => "issues", :action => "edit", :id => @draft.element_id}.merge(@draft.content))
+  end
+  
   def destroy
     @draft = Draft.find(params[:id])
     @draft.destroy
