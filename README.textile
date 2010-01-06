@@ -1,0 +1,19 @@
+h1. Redmine Drafts Plugin
+
+This plugin is an answer to issue "#2910":http://www.redmine.org/issues/2910 : 
+
+h2. Install
+
+You can first take a look at general instructions for plugins "here":http://www.redmine.org/wiki/redmine/Plugins.
+
+Then :
+* clone this repository in your vendor/plugins directory ; if you have a doubt you put it at the good level, you can check you have a vendor/plugins/redmine_drafts/init.rb file
+* run the migrations from your redmine root directory with command : @rake db:migrate_plugins@
+* restart your Redmine instance (depends on how you host it)
+
+h2. Contribute
+
+If you like this plugin, it's a good idea to contribute :
+* by giving feed back on what is cool, what should be improved
+* by reporting bugs : you can open issues directly on github for the moment
+* by forking it and sending pull request if you have a patch or a feature you want to implement
