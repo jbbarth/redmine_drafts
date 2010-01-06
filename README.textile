@@ -1,11 +1,8 @@
 h1. Redmine Drafts Plugin
 
-This plugin is an answer to issue "#2910":http://www.redmine.org/issues/2910 : if you accidentally leave
-an issue while editing it, and if it's very large, it can drive you crazy to lose everything you typed before. 
-There can be at least 2 approaches to avoid losing data this way :
+This plugin is an answer to issue "#2910":http://www.redmine.org/issues/2910 : if you accidentally leave an issue while editing it, and if it's very large, it can drive you crazy to lose everything you typed before. There can be at least 2 approaches to avoid losing data this way :
 * forbid leaving the page with a javascript warning
-* saving drafts periodically so you can find and restore it when you're back on the issue page : this is the 
-method this plugin tries to implement
+* saving drafts periodically so you can find and restore it when you're back on the issue page : this is the method this plugin tries to implement
 
 h2. Install
 
