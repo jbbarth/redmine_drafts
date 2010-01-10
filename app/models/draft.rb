@@ -7,13 +7,9 @@ class Draft < ActiveRecord::Base
   end
 
   def self.find_for_issue(issue, user, version)
-    unless issue.new_record?
-      find(:last, :conditions => {
-                      :user_id => user.id,
-                      :element_type => "Issue",
-                      :element_id => issue.id,
-                      :element_lock_version => version
-      })
-    end
+    find(:last, :conditions => {:user_id => user.id,
+                                :element_type => "Issue",
+                                :element_id => issue.id,
+                                :element_lock_version => version})
   end
 end

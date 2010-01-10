@@ -1,4 +1,4 @@
-<% if User.current.logged? %>
+<% if User.current.logged? && !@issue.new_record? %>
   <% draft = Draft.find_for_issue(@issue,User.current,@issue.lock_version) %>
   <% if draft %>
   <tr id="draft-pending">
