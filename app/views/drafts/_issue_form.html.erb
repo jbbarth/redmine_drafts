@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag 'drafts', :plugin => :redmine_drafts %>
 <% end %>
 
-<% unless @issue.new_record? || User.current.anonymous? %>
+<% unless @issue.new_record? || !User.current.logged? %>
   <%= observe_form :"issue-form",
                    :url => drafts_path(:user_id => User.current.id, :issue_id => @issue.id),
                    :method => :post,

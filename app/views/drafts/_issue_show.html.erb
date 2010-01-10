@@ -1,18 +1,20 @@
-<% draft = Draft.find_for_issue(@issue,User.current,@issue.lock_version) %>
-<% if draft %>
-<tr id="draft-pending">
-  <td colspan="4" class="draft">
-    <%= l(:label_draft_pending,
-          {:time => time_tag(draft.updated_at),
-          :restore => link_to(l(:label_draft_restore),
-                        restore_draft_path(draft),
-                        :method => :put),
-          :delete => link_to_remote(l(:label_draft_delete),
-                        :url => draft_path(draft),
-                        :method => :delete,
-                        :success => "Effect.Fade('draft-pending');")
-          }
-        ) %>
-  </td>
-</tr>
+<% if User.current.logged? %>
+  <% draft = Draft.find_for_issue(@issue,User.current,@issue.lock_version) %>
+  <% if draft %>
+  <tr id="draft-pending">
+    <td colspan="4" class="draft">
+      <%= l(:label_draft_pending,
+            {:time => time_tag(draft.updated_at),
+            :restore => link_to(l(:label_draft_restore),
+                          restore_draft_path(draft),
+                          :method => :put),
+            :delete => link_to_remote(l(:label_draft_delete),
+                          :url => draft_path(draft),
+                          :method => :delete,
+                          :success => "Effect.Fade('draft-pending');")
+            }
+          ) %>
+    </td>
+  </tr>
+  <% end %>
 <% end %>

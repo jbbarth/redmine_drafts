@@ -7,7 +7,7 @@ class Draft < ActiveRecord::Base
   end
 
   def self.find_for_issue(issue, user, version)
-    unless issue.new_record? || user.anonymous?
+    unless issue.new_record?
       find(:last, :conditions => {
                       :user_id => user.id,
                       :element_type => "Issue",

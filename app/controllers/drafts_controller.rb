@@ -1,5 +1,7 @@
 class DraftsController < ApplicationController
   unloadable
+  
+  before_filter :require_login
 
   def create
     if request.xhr? && !params[:notes].blank?
