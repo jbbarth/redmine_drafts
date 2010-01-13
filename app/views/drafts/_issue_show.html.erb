@@ -4,7 +4,7 @@
   <tr id="draft-pending">
     <td colspan="4" class="draft">
       <%= l(:label_draft_pending,
-            {:time => time_tag(draft.updated_at),
+            {:time => distance_of_time_in_words(Time.now, draft.updated_at),
             :restore => link_to(l(:label_draft_restore),
                           restore_draft_path(draft),
                           :method => :put),
