@@ -6,10 +6,11 @@ class Draft < ActiveRecord::Base
     YAML.load(read_attribute(:content))
   end
 
-  def self.find_for_issue(issue, user, version)
-    find(:last, :conditions => {:user_id => user.id,
-                                :element_type => "Issue",
-                                :element_id => issue.id,
-                                :element_lock_version => version})
+  def self.find_for_issue(conditions)
+    find :last, :conditions => conditions.merge(:element_type => "Issue")
+  end
+
+  def self.find_or_create_for_issue(conditions)
+    find_for_issue(conditions) || create(conditions.merge(:element_type => "Issue"))
   end
 end

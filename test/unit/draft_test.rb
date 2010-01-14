@@ -6,4 +6,15 @@ class DraftTest < ActiveSupport::TestCase
   def test_should_be_valid
     assert Draft.new.valid?
   end
+
+  def test_find_for_issue
+    assert Draft.find_for_issue(:element_id => 1, :element_lock_version => 3, :user_id => 1).is_a?(Draft)
+  end
+
+  def test_find_or_create_for_issue
+    assert_nil Draft.find_for_issue(:element_id => 1, :element_lock_version => 4, :user_id => 1)
+    draft = Draft.find_or_create_for_issue(:element_id => 1, :element_lock_version => 4, :user_id => 1)
+    assert draft.is_a?(Draft)
+    assert draft.valid?
+  end
 end

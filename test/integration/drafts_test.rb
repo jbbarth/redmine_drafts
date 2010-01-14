@@ -19,7 +19,7 @@ class DraftsTest < ActionController::IntegrationTest
                :notes => "Just a first try to add a note"
               }
     assert_response :success
-    draft = Draft.find_for_issue(issue,user,8)
+    draft = Draft.find_for_issue(:element_id => issue, :user_id => user, :element_lock_version => 8)
     assert_not_nil draft
     assert_equal ["issue", "notes"], draft.content.keys.sort
     assert_equal "Changed the subject", draft.content[:issue][:subject]
@@ -35,7 +35,7 @@ class DraftsTest < ActionController::IntegrationTest
                                                 :element_id => 1,
                                                 :element_lock_version => 8,
                                                 :user_id => 1})
-    draft = Draft.find_for_issue(issue,user,8)
+    draft = Draft.find_for_issue(:element_id => issue, :user_id => user, :element_lock_version => 8)
     assert_equal "Changed the subject again !", draft.content[:issue][:subject]
   end
 end

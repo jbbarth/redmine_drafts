@@ -5,11 +5,9 @@ class DraftsController < ApplicationController
 
   def create
     if request.xhr? && !params[:notes].blank?
-      @issue = Issue.find(params[:issue_id])
-      version = params[:issue][:lock_version].to_i
-      @user = User.find(params[:user_id])
-      @draft = Draft.find_for_issue(@issue,@user,version)
-      @draft ||= Draft.create(:user => @user, :element => @issue, :element_lock_version => version)
+      @draft = Draft.find_or_create_for_issue(:user_id => params[:user_id].to_i,
+                                              :element_id => params[:issue_id].to_i,
+                                              :element_lock_version => params[:issue][:lock_version].to_i)
       @draft.content = params.reject{|k,v| !%w(issue notes).include?(k)}
       if @draft.save
         render :partial => "saved", :layout => false
