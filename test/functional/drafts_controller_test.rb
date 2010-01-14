@@ -45,4 +45,20 @@ class DraftsControllerTest < ActionController::TestCase
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1, :element_lock_version => 8)
     assert_equal "Changed the subject again !", draft.content[:issue][:subject]
   end
+  
+  def test_save_draft_for_new_issue
+    @request.session[:user_id] = 1
+    xhr :post, :create,
+              {:issue_id => 0,
+               :user_id => 1,
+               :issue => { :lock_version => 0, 
+                           :subject => "This is a totally new issue",
+                           :description => "It has a description" },
+              }
+    assert_response :success
+    draft = Draft.find_for_issue(:element_id => 0, :user_id => 1, :element_lock_version => 0)
+    assert_not_nil draft
+    assert_equal ["issue"], draft.content.keys
+    assert_equal "This is a totally new issue", draft.content[:issue][:subject]
+  end
 end

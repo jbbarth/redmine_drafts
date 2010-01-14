@@ -1,0 +1,11 @@
+<%= l(:label_draft_pending,
+      {:time => distance_of_time_in_words(Time.now, draft.updated_at),
+       :restore => link_to(l(:label_draft_restore),
+                           restore_draft_path(draft, :project_id => @project.id),
+                           :method => :put),
+       :delete => link_to_remote(l(:label_draft_delete),
+                                 :url => draft_path(draft),
+                                 :method => :delete,
+                                 :success => "Effect.Fade('draft-pending');")
+      }
+    ) %>
