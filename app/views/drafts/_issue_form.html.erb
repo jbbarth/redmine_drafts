@@ -16,7 +16,7 @@
 <div id="draft-status" style="display:none;"></div>
 
 <% if User.current.logged? && @issue.new_record? %>
-  <% draft = Draft.find_for_issue(:element_id => 0, :user_id => User.current, :element_lock_version => @issue.lock_version) %>
+  <% draft = Draft.find_for_issue(:element_id => 0, :user_id => User.current) %>
   <% if draft %>
     <div id="draft-pending">
       <%= render 'drafts/pending', :draft => draft %>

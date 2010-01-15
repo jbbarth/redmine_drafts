@@ -17,7 +17,7 @@ class IssueDraftsTest < ActiveSupport::TestCase
     issue = Issue.find(1)
     User.current = issue.author
     conds = {:user_id => issue.author.id, :element_id => issue.id}
-    assert Draft.find_or_create_for_issue(conds.merge(:element_lock_version => issue.lock_version)).is_a?(Draft)
+    assert Draft.find_or_create_for_issue(conds).is_a?(Draft)
     assert_not_nil Draft.find_for_issue(conds)
     issue.subject = "Another wonderful subject"
     issue.save
