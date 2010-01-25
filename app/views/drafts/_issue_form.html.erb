@@ -4,7 +4,7 @@
 
 <% if User.current.logged? %>
   <%= observe_form :"issue-form",
-                   :url => drafts_path(:user_id => User.current.id, :issue_id => @issue.id),
+                   :url => autosave_drafts_path(:user_id => User.current.id, :issue_id => @issue.id),
                    :method => :post,
                    :update => :"draft-status",
                    :frequency => 15,

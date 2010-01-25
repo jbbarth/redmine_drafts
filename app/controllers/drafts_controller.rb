@@ -3,7 +3,7 @@ class DraftsController < ApplicationController
   
   before_filter :require_login
 
-  def create
+  def autosave
     has_to_be_saved = !params[:notes].blank?
     has_to_be_saved ||= (params[:issue_id].to_i == 0 && !params[:issue][:subject].blank?)
     if request.xhr? && has_to_be_saved

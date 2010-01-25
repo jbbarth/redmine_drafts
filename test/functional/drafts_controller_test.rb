@@ -11,14 +11,14 @@ class DraftsControllerTest < ActionController::TestCase
     Setting.default_language = 'en'
   end
 
-  def test_anonymous_user_cannot_create_a_draft
-    xhr :post, :create
-    assert_redirected_to '/login?back_url=http%3A%2F%2Ftest.host%2Fdrafts'
+  def test_anonymous_user_cannot_autosave_a_draft
+    xhr :post, :autosave
+    assert_redirected_to '/login?back_url=http%3A%2F%2Ftest.host%2Fdrafts%2Fautosave'
   end
   
   def test_save_draft_for_existing_issue
     @request.session[:user_id] = 1
-    xhr :post, :create,
+    xhr :post, :autosave,
               {:issue_id => 1,
                :user_id => 1,
                :issue => { :subject => "Changed the subject" },
@@ -30,7 +30,7 @@ class DraftsControllerTest < ActionController::TestCase
     assert_equal ["issue", "notes"], draft.content.keys.sort
     assert_equal "Changed the subject", draft.content[:issue][:subject]
     
-    xhr :post, :create,
+    xhr :post, :autosave,
               {:issue_id => 1,
                :notes => "Ok, let's change this note entirely and see if draft is duplicated",
                :user_id => 1,
@@ -45,7 +45,7 @@ class DraftsControllerTest < ActionController::TestCase
   
   def test_save_draft_for_new_issue
     @request.session[:user_id] = 1
-    xhr :post, :create,
+    xhr :post, :autosave,
               {:issue_id => 0,
                :user_id => 1,
                :issue => { :subject => "This is a totally new issue",
