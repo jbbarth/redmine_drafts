@@ -3,7 +3,8 @@ class Draft < ActiveRecord::Base
   belongs_to :element, :polymorphic => true
 
   def content
-    YAML.load(read_attribute(:content))
+    c = read_attribute(:content)
+    c.nil? ? {} : YAML.load(c)
   end
 
   def self.find_for_issue(conditions)
