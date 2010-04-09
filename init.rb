@@ -3,7 +3,7 @@ require 'redmine'
 require 'drafts_issue_hook'
 
 config.to_prepare do
-  require_dependency 'issue_patch'
+  require_dependency 'drafts_issue_patch'
 end
 
 Redmine::Plugin.register :redmine_drafts do
