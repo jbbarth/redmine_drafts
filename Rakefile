@@ -7,6 +7,7 @@ task :default => :test
 
 desc 'Test the redmine_drafts plugin.'
 Rake::TestTask.new(:test) do |t|
+  ENV["RAILS_ENV"] = "test"
   t.libs << 'lib'
   t.libs << 'test'
   t.pattern = 'test/**/*_test.rb'
