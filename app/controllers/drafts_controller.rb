@@ -7,7 +7,7 @@ class DraftsController < ApplicationController
     has_to_be_saved = !params[:notes].blank?
     has_to_be_saved ||= (params[:issue_id].to_i == 0 && !params[:issue][:subject].blank?)
     if request.xhr? && has_to_be_saved
-      @draft = Draft.find_or_create_for_issue(:user_id => params[:user_id].to_i,
+      @draft = Draft.find_or_create_for_issue(:user_id => User.current.id,
                                               :element_id => params[:issue_id].to_i)
       new_content = params.reject{|k,v| !%w(issue notes).include?(k)}
       unless @draft.content == new_content
