@@ -1,0 +1,6 @@
+pl:
+  label_draft_saved_time: "Zapisano o {{value}}"
+  label_draft_pending: "Kopia robocza, zapisana {{time}} temu : {{restore}} or {{delete}}"
+  label_draft_restore: "Przywróć"
+  label_draft_delete: "Usuń"
+
