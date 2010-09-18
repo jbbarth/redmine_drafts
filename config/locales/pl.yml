@@ -1,0 +1,6 @@
+# Polish strings go here for Rails i18n
+pl:
+  label_draft_saved_time: "Szkic zapisany ostatnio {{value}}"
+  label_draft_pending: "Szkic w trakcie, zapisany {{time}} temu : {{restore}} lub {{delete}}"
+  label_draft_restore: "odzyskaj"
+  label_draft_delete: "usuń"
