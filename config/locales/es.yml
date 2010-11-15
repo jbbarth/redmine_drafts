@@ -1,0 +1,5 @@
+es:
+  label_draft_saved_time: "Bosquejo ahorrado en  {{value}}"
+  label_draft_pending: "Bosquejo pendiente , ahorrado {{time}} hace : {{restore}} o {{delete}}"
+  label_draft_restore: "Recuperar"
+  label_draft_delete: "eliminar"
