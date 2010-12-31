@@ -13,7 +13,7 @@ class DraftsControllerTest < ActionController::TestCase
 
   def test_anonymous_user_cannot_autosave_a_draft
     xhr :post, :autosave
-    assert_redirected_to '/login?back_url=http%3A%2F%2Ftest.host%2Fdrafts%2Fautosave'
+    assert_response 401
   end
   
   def test_save_draft_for_existing_issue
