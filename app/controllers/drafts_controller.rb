@@ -25,9 +25,9 @@ class DraftsController < ApplicationController
   def restore
     @draft = Draft.find(params[:id])
     if @draft.element_id == 0
-      redirect_to({:controller => "issues", :action => "new", :project_id => params[:project_id].to_i}.merge(@draft.content))
+      redirect_to({:controller => "issues", :action => "new", :project_id => params[:project_id].to_i, :draft_id => @draft})
     else
-      redirect_to({:controller => "issues", :action => "edit", :id => @draft.element_id}.merge(@draft.content))
+      redirect_to({:controller => "issues", :action => "edit", :id => @draft.element_id, :draft_id => @draft})
     end
   end
   
