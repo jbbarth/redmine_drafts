@@ -1,0 +1,6 @@
+# Portuguese strings go here for Rails i18n
+pt-BR:
+  label_draft_saved_time: "Rascunho salvo às {{value}}"
+  label_draft_pending: "Rascunho pendente, salvo à {{time}} atrás : {{restore}} ou {{delete}}"
+  label_draft_restore: "restaurar"
+  label_draft_delete: "apagar"
