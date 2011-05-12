@@ -4,6 +4,7 @@ require 'drafts_issue_hook'
 
 config.to_prepare do
   require_dependency 'drafts_issue_patch'
+  require_dependency 'drafts_issues_patch'
 end
 
 Redmine::Plugin.register :redmine_drafts do
