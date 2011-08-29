@@ -1,6 +1,6 @@
 # English strings go here for Rails i18n
 en:
-  label_draft_saved_time: "Draft saved at {{value}}"
-  label_draft_pending: "Draft pending, saved {{time}} ago : {{restore}} or {{delete}}"
+  label_draft_saved_time: "Draft saved at %{value}"
+  label_draft_pending: "Draft pending, saved %{time} ago : %{restore} or %{delete}"
   label_draft_restore: "restore"
   label_draft_delete: "delete"

@@ -1,6 +1,6 @@
 # English strings go here for Rails i18n
 fr:
-  label_draft_saved_time: "Brouillon sauvegardé à {{value}}"
-  label_draft_pending: "Brouillon en attente, sauvegardé il y a {{time}} : {{restore}} ou {{delete}}"
+  label_draft_saved_time: "Brouillon sauvegardé à %{value}"
+  label_draft_pending: "Brouillon en attente, sauvegardé il y a %{time} : %{restore} ou %{delete}"
   label_draft_restore: "restaurer"
   label_draft_delete: "supprimer"

@@ -1,6 +1,6 @@
 # German strings go here for Rails i18n
 de:
-  label_draft_saved_time: "Zwischenstand gespeichert um {{value}}"
-  label_draft_pending: "Zwischenstand, gespeichert vor {{time}}: {{restore}} oder {{delete}}"
+  label_draft_saved_time: "Zwischenstand gespeichert um %{value}"
+  label_draft_pending: "Zwischenstand, gespeichert vor %{time}: %{restore} oder %{delete}"
   label_draft_restore: "Wiederherstellen"
   label_draft_delete: "Löschen"

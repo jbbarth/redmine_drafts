@@ -1,7 +1,7 @@
 # Polish strings go here for Rails i18n
 pl:
-  label_draft_saved_time: "Przeciąg zapisany ostatnio {{value}}"
-  label_draft_pending: "Przeciąg w toku, zapisany {{time}} temu : {{restore}} lub {{delete}}"
+  label_draft_saved_time: "Przeciąg zapisany ostatnio %{value}"
+  label_draft_pending: "Przeciąg w toku, zapisany %{time} temu : %{restore} lub %{delete}"
   label_draft_restore: "przywrócić"
   label_draft_delete: "usuń"
 

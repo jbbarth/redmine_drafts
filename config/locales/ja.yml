@@ -1,6 +1,6 @@
 # Japanese strings go here for Rails i18n
 ja:
-  label_draft_saved_time: "ドラフトは {{value}} に保存されました。"
-  label_draft_pending: "{{time}}前に保存されたドラフトがあります。 : {{restore}} or {{delete}}"
+  label_draft_saved_time: "ドラフトは %{value} に保存されました。"
+  label_draft_pending: "%{time}前に保存されたドラフトがあります。 : %{restore} or %{delete}"
   label_draft_restore: "復旧"
   label_draft_delete: "削除"

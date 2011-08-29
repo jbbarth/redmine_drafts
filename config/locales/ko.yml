@@ -1,6 +1,6 @@
 # Translation by Ki Won Kim (http://xyz37.blog.me, xyz37@naver.com)
 ko:
-  label_draft_saved_time: "{{value}}에 임시 저장됨"
-  label_draft_pending: "작업 중인 문서가 {{time}} 전에 임시 저장 되었습니다. : {{restore}} / {{delete}}"
+  label_draft_saved_time: "%{value}에 임시 저장됨"
+  label_draft_pending: "작업 중인 문서가 %{time} 전에 임시 저장 되었습니다. : %{restore} / %{delete}"
   label_draft_restore: "복구"
   label_draft_delete: "삭제"
