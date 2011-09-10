@@ -1,0 +1,6 @@
+# Russian strings go here for Rails i18n
+ru:
+  label_draft_saved_time: "Черновик сохранен в %{value}"
+  label_draft_pending: "Черновик в ожидании, сохранен %{time} назад : %{restore} или %{delete}"
+  label_draft_restore: "восстановить"
+  label_draft_delete: "удалить"
