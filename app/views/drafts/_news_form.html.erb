@@ -1,31 +1,32 @@
 <% content_for :header_tags do %>
   <%= stylesheet_link_tag 'drafts', :plugin => :redmine_drafts %>
 <% end %>
+<%= yield :header_tags %>
 
-<% if User.current.logged? %>
-  <%= observe_form :"issue-form",
+<%= observe_form :"news-form",
                    :update => :"draft-status",
                    :frequency => 15,
                    :function => "document.getElementById('ajax-indicator').firstChild.firstChild.nodeValue = '" + l(:label_draft_saving) + "';"
-                   #:complete => ""
     %>
-  <%= observe_form :"issue-form",
-                   :url => autosave_drafts_path(:issue_id => @issue.id),
+<%= observe_form :"news-form",
+                   :url => autosave_drafts_path(:news_id => @news.nil? ? 0 : @news.id),
                    :method => :post,
                    :update => :"draft-status",
                    :frequency => 15,
                    :complete => "Effect.Appear('draft-status'); if (!$('draft-status').empty() && $('draft-pending')) { $('draft-pending').hide(); }"
-                   #:complete => "Element.show('draft-status'); Effect.Pulsate('draft-status',{pulses:1})"
     %>
-<% end %>
 
 <div id="draft-status" style="display:none;"></div>
 
-<% if User.current.logged? && @issue.new_record? && params[:issue].nil? %>
-  <% draft = Draft.find_for_issue(:element_id => 0, :user_id => User.current) %>
-  <% if draft %>
-    <div id="draft-pending">
-      <%= render :partial => 'drafts/pending', :locals => { :draft => draft } %>
-    </div>
-  <% end %>
+<% 
+  if @news.nil? || (@news.new_record? && params[:news].nil?)
+    draft = Draft.find_for_news(:element_id => 0, :user_id => User.current)
+  elsif !@news.new_record?
+    draft = Draft.find_for_news(:element_id => @news.id, :user_id => User.current)
+  end
+%>
+<% if draft %>
+  <div id="draft-pending">
+    <%= render :partial => 'drafts/pending', :locals => { :draft => draft } %>
+  </div>
 <% end %>

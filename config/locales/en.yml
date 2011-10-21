@@ -4,3 +4,5 @@ en:
   label_draft_pending: "Draft pending, saved %{time} ago : %{restore} or %{delete}"
   label_draft_restore: "restore"
   label_draft_delete: "delete"
+  label_draft_version_conflict: "The draft was saved as version %{draft_version}, but the page is at version %{current_version}"
+  label_draft_saving: "Saving draft..."
