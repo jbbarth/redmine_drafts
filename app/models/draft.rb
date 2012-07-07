@@ -2,13 +2,14 @@ class Draft < ActiveRecord::Base
   belongs_to :user
   belongs_to :element, :polymorphic => true
 
+  serialize :content
+
   def content
-    c = read_attribute(:content)
-    c.nil? ? {} : YAML.load(c)
+    read_attribute(:content) || Hash.new
   end
 
   def self.find_for_issue(conditions)
-    find :last, :conditions => conditions.merge(:element_type => "Issue")
+    where(conditions.merge(:element_type => "Issue")).last
   end
 
   def self.find_or_create_for_issue(conditions)

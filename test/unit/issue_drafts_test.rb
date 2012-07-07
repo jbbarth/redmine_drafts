@@ -1,11 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class IssueDraftsTest < ActiveSupport::TestCase
-  fixtures :users, :issues
+  fixtures :users, :issues, :issue_statuses, :projects, :projects_trackers, :trackers, :enumerations
 
   def test_clean_drafts_on_create
     User.current = User.find(3)
-    issue = Issue.new(:project_id => 1, :tracker_id => 1, :author_id => 3, :status_id => 1, :priority => IssuePriority.all.first, :subject => 'test_create', :description => 'IssueTest#test_create')
+    project = Project.first
+    issue = Issue.new(:project => project, :author => User.current, :subject => 'test_create', :description => 'IssueTest#test_create',
+                      :status => IssueStatus.first, :tracker => project.trackers.first, :priority => IssuePriority.first)
     conds = {:user_id => 3, :element_id => 0}
     assert Draft.find_or_create_for_issue(conds).is_a?(Draft)
     assert_not_nil Draft.find_for_issue(conds)
