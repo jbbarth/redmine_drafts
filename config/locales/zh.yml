@@ -1,0 +1,5 @@
+zh:
+label_draft_saved_time: "草稿已暂存 %{value}"
+label_draft_pending: "%{time}之前暂存的未决草稿 : %{restore} 或 %{delete}"
+label_draft_restore: "恢复"
+label_draft_delete: "删除"
