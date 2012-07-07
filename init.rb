@@ -1,10 +1,16 @@
 require 'redmine'
 
 require 'drafts_issue_hook'
+require 'drafts_wiki_hook'
+require 'drafts_news_hook'
 
 config.to_prepare do
   require_dependency 'drafts_issue_patch'
   require_dependency 'drafts_issues_patch'
+  require_dependency 'drafts_wiki_patch'
+  require_dependency 'drafts_wiki_controller_patch'
+  require_dependency 'drafts_news_patch'
+  require_dependency 'drafts_news_controller_patch'
 end
 
 Redmine::Plugin.register :redmine_drafts do
