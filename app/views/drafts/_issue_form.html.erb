@@ -5,7 +5,7 @@
 <% if User.current.logged? %>
   <%= observe_form :"issue-form",
                    :url => autosave_drafts_path(:issue_id => @issue.id),
-                   :method => :post,
+                   :method => :put,
                    :update => :"draft-status",
                    :frequency => 15,
                    :complete => "Effect.Appear('draft-status'); if (!$('draft-status').empty() && $('draft-pending')) { $('draft-pending').hide(); }"
