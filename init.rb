@@ -14,5 +14,5 @@ Redmine::Plugin.register :redmine_drafts do
   url 'https://github.com/jbbarth/redmine_drafts'
   author 'Jean-Baptiste BARTH'
   author_url 'mailto:jeanbaptiste.barth@gmail.com'
-  requires_redmine :version_or_higher => '2.0.0'
+  requires_redmine :version_or_higher => '2.1.0'
 end
