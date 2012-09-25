@@ -3,8 +3,8 @@ require 'redmine'
 require 'redmine_drafts/hooks'
 
 ActionDispatch::Callbacks.to_prepare do
-  require_dependency 'drafts_issue_patch'
-  require_dependency 'drafts_issues_patch'
+  require_dependency 'redmine_drafts/issue_patch'
+  require_dependency 'redmine_drafts/issues_controller_patch'
 end
 
 Redmine::Plugin.register :redmine_drafts do
