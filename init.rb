@@ -1,6 +1,5 @@
 require 'redmine'
 
-require 'drafts_issue_hook'
 require 'redmine_drafts/hooks'
 
 ActionDispatch::Callbacks.to_prepare do
