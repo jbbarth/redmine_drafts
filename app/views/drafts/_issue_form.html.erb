@@ -5,6 +5,9 @@
 <% if User.current.logged? %>
 <script>
 $(function() {
+  //ensure draft status div is at the bottom of the fieldset
+  $("#draft-status").appendTo($("#draft-status").closest("fieldset"))
+  //observe changed on the form
   $("#issue-form").observe(20, function() {
     $.ajax({
       url: "<%= autosave_drafts_path(:issue_id => @issue.id) %>",
