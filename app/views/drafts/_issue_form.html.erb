@@ -3,14 +3,18 @@
 <% end %>
 
 <% if User.current.logged? %>
-  <%= observe_form :"issue-form",
-                   :url => autosave_drafts_path(:issue_id => @issue.id),
-                   :method => :put,
-                   :update => :"draft-status",
-                   :frequency => 60,
-                   :complete => "Effect.Appear('draft-status'); if (!$('draft-status').empty() && $('draft-pending')) { $('draft-pending').hide(); }"
-                   #:complete => "Element.show('draft-status'); Effect.Pulsate('draft-status',{pulses:1})"
-    %>
+<script>
+$(function() {
+  $("#issue-form").observe(20, function() {
+    $.ajax({
+      url: "<%= autosave_drafts_path(:issue_id => @issue.id) %>",
+      dataType: "script",
+      type: "PUT",
+      data: $(this).serialize()
+    })
+  })
+})
+</script>
 <% end %>
 
 <div id="draft-status" style="display:none;"></div>

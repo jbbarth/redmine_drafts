@@ -3,9 +3,7 @@
        :restore => link_to(l(:label_draft_restore),
                            restore_draft_path(draft, :project_id => @project.id),
                            :method => :put),
-       :delete => link_to_remote(l(:label_draft_delete),
-                                 :url => draft_path(draft),
-                                 :method => :delete,
-                                 :success => "Effect.Fade('draft-pending');")
+       :delete  => link_to(l(:label_draft_delete), draft_path(draft),
+                           :method => :delete, :remote => true)
       }
     ).html_safe %>
