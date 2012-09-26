@@ -10,7 +10,8 @@ $(function() {
       url: "<%= autosave_drafts_path(:issue_id => @issue.id) %>",
       dataType: "script",
       type: "PUT",
-      data: $(this).serialize()
+      data: $(this).serialize(),
+      global: false //no 'loading...' tooltip
     })
   })
 })
