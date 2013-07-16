@@ -69,7 +69,7 @@ class DraftsControllerTest < ActionController::TestCase
     assert_response :success
     draft = Draft.find_for_issue(:element_id => 0, :user_id => 1)
     assert_not_nil draft
-    assert_equal ["issue"], draft.content.keys
+    assert_equal ["issue", "notes"], draft.content.keys
     assert_equal "This is a totally new issue", draft.content[:issue][:subject]
   end
 

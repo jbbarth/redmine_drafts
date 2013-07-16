@@ -5,7 +5,16 @@ class Draft < ActiveRecord::Base
   serialize :content
 
   def content
-    read_attribute(:content) || Hash.new
+    hsh = read_attribute(:content) || Hash.new
+    if hsh.present? && hsh.respond_to?(:to_hash)
+      #Redmine 2.1.x had hsh[:notes] while Redmine 2.2.x moved it to
+      #hsh[:issue][:notes] when introducing private notes. We want to
+      #support both formats so we need to save and restore at both places.
+      hsh["issue"] ||= {}
+      hsh["notes"] = hsh["issue"]["notes"] if hsh["notes"].blank?
+      hsh["issue"]["notes"] = hsh["notes"] if hsh["issue"]["notes"].blank?
+    end
+    hsh
   end
 
   def self.find_for_issue(conditions)
