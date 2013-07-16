@@ -15,7 +15,7 @@ class DraftsControllerTest < ActionController::TestCase
     xhr :post, :autosave
     assert_response 401
   end
-  
+
   def test_save_draft_for_existing_issue
     @request.session[:user_id] = 1
     xhr :post, :autosave,
@@ -41,6 +41,21 @@ class DraftsControllerTest < ActionController::TestCase
                                                 :user_id => 1})
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     assert_equal "Changed the subject again !", draft.content[:issue][:subject]
+  end
+
+  def test_save_draft_for_existing_issue_with_redmine_2_3_format
+    @request.session[:user_id] = 1
+    xhr :post, :autosave,
+              { :issue_id => 1,
+                :user_id => 1,
+                :issue => {
+                  :notes => "A note in Redmine 2.3.x structure!"
+                }
+              }
+    assert_response :success
+    draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
+    assert_not_nil draft
+    assert_equal "A note in Redmine 2.3.x structure!", draft.content[:notes]
   end
   
   def test_save_draft_for_new_issue
