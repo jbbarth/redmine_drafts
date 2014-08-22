@@ -1,22 +1,19 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require "spec_helper"
 
-class DraftsControllerTest < ActionController::TestCase
-  fixtures :drafts, :issues, :users
+describe DraftsController do
+  fixtures :drafts, :issues, :users, :issue_statuses, :projects, :projects_trackers, :trackers, :enumerations
 
-  def setup
-    @controller = DraftsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+  before do
     @request.session[:user_id] = nil
     Setting.default_language = 'en'
   end
 
-  def test_anonymous_user_cannot_autosave_a_draft
+  it "should anonymous user cannot autosave a draft" do
     xhr :post, :autosave
     assert_response 401
   end
 
-  def test_save_draft_for_existing_issue
+  it "should save draft for existing issue" do
     @request.session[:user_id] = 1
     xhr :post, :autosave,
               {:issue_id => 1,
@@ -24,26 +21,24 @@ class DraftsControllerTest < ActionController::TestCase
                :issue => { :subject => "Changed the subject" },
                :notes => "Just a first try to add a note"
               }
-    assert_response :success
+    response.should be_success
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     assert_not_nil draft
-    assert_equal ["issue", "notes"], draft.content.keys.sort
-    assert_equal "Changed the subject", draft.content[:issue][:subject]
-    
+    draft.content.keys.sort.should == ["issue", "notes"]
+    draft.content[:issue][:subject].should == "Changed the subject"
+
     xhr :post, :autosave,
               {:issue_id => 1,
                :notes => "Ok, let's change this note entirely and see if draft is duplicated",
                :user_id => 1,
                :issue => { :subject => "Changed the subject again !" }
               }
-    assert_equal 1, Draft.count(:conditions => {:element_type => 'Issue', 
-                                                :element_id => 1,
-                                                :user_id => 1})
+    (Draft.count(:conditions => {:element_type => 'Issue', :element_id => 1, :user_id => 1})).should == 1
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
-    assert_equal "Changed the subject again !", draft.content[:issue][:subject]
+    draft.content[:issue][:subject].should == "Changed the subject again !"
   end
 
-  def test_save_draft_for_existing_issue_with_redmine_2_3_format
+  it "should save draft for existing issue with redmine 2 3 format" do
     @request.session[:user_id] = 1
     xhr :post, :autosave,
               { :issue_id => 1,
@@ -52,13 +47,13 @@ class DraftsControllerTest < ActionController::TestCase
                   :notes => "A note in Redmine 2.3.x structure!"
                 }
               }
-    assert_response :success
+    response.should be_success
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     assert_not_nil draft
-    assert_equal "A note in Redmine 2.3.x structure!", draft.content[:notes]
+    draft.content[:notes].should == "A note in Redmine 2.3.x structure!"
   end
-  
-  def test_save_draft_for_new_issue
+
+  it "should save draft for new issue" do
     @request.session[:user_id] = 1
     xhr :post, :autosave,
               {:issue_id => 0,
@@ -66,27 +61,28 @@ class DraftsControllerTest < ActionController::TestCase
                :issue => { :subject => "This is a totally new issue",
                            :description => "It has a description" },
               }
-    assert_response :success
+    response.should be_success
     draft = Draft.find_for_issue(:element_id => 0, :user_id => 1)
     assert_not_nil draft
-    assert_equal ["issue", "notes"], draft.content.keys
-    assert_equal "This is a totally new issue", draft.content[:issue][:subject]
+    draft.content.keys.should == ["issue", "notes"]
+    draft.content[:issue][:subject].should == "This is a totally new issue"
   end
 
-  def test_clean_draft_after_create
+  it "should clean draft after create" do
     User.current=User.find(1)
     Draft.create(:element_type => 'Issue', :element_id => 0, :user_id => 1)
     assert_not_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
     issue = Issue.new(:project_id => 1, :tracker_id => 1, :author_id => 1,
-              :status_id => 1, :priority => IssuePriority.all.first, 
-              :subject => 'test_clean_after_draft_create', 
+              :status_id => 1, :priority => IssuePriority.all.first,
+              :subject => 'test_clean_after_draft_create',
               :description => 'Draft cleaning after_create')
     assert issue.save
     assert_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
   end
-    
-  def test_clean_draft_after_update
-    User.current=User.find(1)
+
+  it "should clean draft after update" do
+    User.current = User.find(1)
+    Draft.create(:element_type => 'Issue', :element_id => 1, :user_id => 1)
     assert_not_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
     Issue.find(1).save
     assert_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)

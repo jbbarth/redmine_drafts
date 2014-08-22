@@ -1,9 +1,9 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require "spec_helper"
 
-class IssueDraftsTest < ActiveSupport::TestCase
+describe "IssueDrafts" do
   fixtures :users, :issues, :issue_statuses, :projects, :projects_trackers, :trackers, :enumerations
 
-  def test_clean_drafts_on_create
+  it "should clean drafts on create" do
     User.current = User.find(3)
     project = Project.first
     issue = Issue.new(:project => project, :author => User.current, :subject => 'test_create', :description => 'IssueTest#test_create',
@@ -15,7 +15,7 @@ class IssueDraftsTest < ActiveSupport::TestCase
     assert_nil Draft.find_for_issue(conds)
   end
 
-  def test_clean_drafts_on_update
+  it "should clean drafts on update" do
     issue = Issue.find(1)
     User.current = issue.author
     conds = {:user_id => issue.author.id, :element_id => issue.id}

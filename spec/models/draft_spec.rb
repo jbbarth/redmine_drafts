@@ -1,21 +1,21 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require "spec_helper"
 
-class DraftTest < ActiveSupport::TestCase
+describe "Draft" do
   fixtures :drafts
 
-  def test_should_be_valid
+  it "should should be valid" do
     assert Draft.new.valid?
   end
 
-  def test_nil_content
-    assert_equal Hash.new, Draft.new.content
+  it "should nil content" do
+    Draft.new.content.should == Hash.new
   end
 
-  def test_find_for_issue
+  it "should find for issue" do
     assert Draft.find_for_issue(:element_id => 1, :user_id => 1).is_a?(Draft)
   end
 
-  def test_find_or_create_for_issue
+  it "should find or create for issue" do
     assert_nil Draft.find_for_issue(:element_id => 3, :user_id => 1)
     draft = Draft.find_or_create_for_issue(:element_id => 3, :user_id => 1)
     assert draft.is_a?(Draft)
