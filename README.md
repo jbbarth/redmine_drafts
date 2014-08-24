@@ -1,10 +1,10 @@
-h1. Redmine Drafts Plugin
+# Redmine Drafts Plugin
 
-This plugin is an answer to issue "#2910":http://www.redmine.org/issues/2910 : if you accidentally leave an issue while editing it, and if it's very large, it can drive you crazy to lose everything you typed before. There can be at least 2 approaches to avoid losing data this way :
+This plugin is an answer to issue [#2910](http://www.redmine.org/issues/2910) : if you accidentally leave an issue while editing it, and if it's very large, it can drive you crazy to lose everything you typed before. There can be at least 2 approaches to avoid losing data this way :
 * forbid leaving the page with a javascript warning
 * saving drafts periodically so you can find and restore it when you're back on the issue page : this is the method this plugin tries to implement
 
-h2. Install
+## Install
 
 You can first take a look at general instructions for plugins "here":http://www.redmine.org/wiki/redmine/Plugins.
 
@@ -13,7 +13,7 @@ Then :
 * run the migrations from your redmine root directory with command : @RAILS_ENV=production rake db:migrate_plugins@
 * restart your Redmine instance (depends on how you host it)
 
-h2. Contribute
+## Contribute
 
 If you like this plugin, it's a good idea to contribute :
 * by giving feed back on what is cool, what should be improved
