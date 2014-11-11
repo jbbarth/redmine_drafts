@@ -6,11 +6,11 @@ This plugin is an answer to issue [#2910](http://www.redmine.org/issues/2910) : 
 
 ## Install
 
-You can first take a look at general instructions for plugins "here":http://www.redmine.org/wiki/redmine/Plugins.
+You can first take a look at general instructions for plugins [here](http://www.redmine.org/wiki/redmine/Plugins).
 
 Then :
 * clone this repository in your vendor/plugins directory ; if you have a doubt you put it at the good level, you can check you have a vendor/plugins/redmine_drafts/init.rb file
-* run the migrations from your redmine root directory with command : @RAILS_ENV=production rake db:migrate_plugins@
+* run the migrations from your redmine root directory with command : `RAILS_ENV=production rake db:migrate_plugins`
 * restart your Redmine instance (depends on how you host it)
 
 ## Contribute
