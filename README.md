@@ -9,8 +9,8 @@ This plugin is an answer to issue [#2910](http://www.redmine.org/issues/2910) : 
 You can first take a look at general instructions for plugins [here](http://www.redmine.org/wiki/redmine/Plugins).
 
 Then :
-* clone this repository in your vendor/plugins directory ; if you have a doubt you put it at the good level, you can check you have a vendor/plugins/redmine_drafts/init.rb file
-* run the migrations from your redmine root directory with command : `RAILS_ENV=production rake db:migrate_plugins`
+* clone this repository in your `plugins/` directory ; if you have a doubt you put it at the good level, you can check you have a `plugins/redmine_drafts/init.rb` file
+* run the migrations and copy assets, from your redmine root directory with the command : `RAILS_ENV=production rake redmine:plugins`
 * restart your Redmine instance (depends on how you host it)
 
 ## Contribute
