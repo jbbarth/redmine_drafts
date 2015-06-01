@@ -5,7 +5,7 @@ class CreateDrafts < ActiveRecord::Migration
       t.column :element_id, :integer
       t.column :user_id, :integer
       t.column :content, :text
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

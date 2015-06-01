@@ -4,6 +4,8 @@ class Draft < ActiveRecord::Base
 
   serialize :content
 
+  attr_accessible "user_id", "element_id", "element_type"
+
   def content
     hsh = read_attribute(:content) || Hash.new
     if hsh.present? && hsh.respond_to?(:to_hash)

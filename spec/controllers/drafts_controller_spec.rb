@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe DraftsController do
+describe DraftsController, :type => :controller do
   fixtures :drafts, :issues, :users, :issue_statuses, :projects, :projects_trackers, :trackers, :enumerations
 
   before do
@@ -21,11 +21,11 @@ describe DraftsController do
                :issue => { :subject => "Changed the subject" },
                :notes => "Just a first try to add a note"
               }
-    response.should be_success
+    expect(response).to be_success
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
-    assert_not_nil draft
-    draft.content.keys.sort.should == ["issue", "notes"]
-    draft.content[:issue][:subject].should == "Changed the subject"
+    refute_nil draft
+    expect(draft.content.keys.sort).to eq ["issue", "notes"]
+    expect(draft.content[:issue][:subject]).to eq "Changed the subject"
 
     xhr :post, :autosave,
               {:issue_id => 1,
@@ -33,9 +33,9 @@ describe DraftsController do
                :user_id => 1,
                :issue => { :subject => "Changed the subject again !" }
               }
-    (Draft.count(:conditions => {:element_type => 'Issue', :element_id => 1, :user_id => 1})).should == 1
+    expect(Draft.where(:element_type => 'Issue', :element_id => 1, :user_id => 1).count).to eq 1
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
-    draft.content[:issue][:subject].should == "Changed the subject again !"
+    expect(draft.content[:issue][:subject]).to eq "Changed the subject again !"
   end
 
   it "should save draft for existing issue with redmine 2 3 format" do
@@ -47,10 +47,10 @@ describe DraftsController do
                   :notes => "A note in Redmine 2.3.x structure!"
                 }
               }
-    response.should be_success
+    expect(response).to be_success
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
-    assert_not_nil draft
-    draft.content[:notes].should == "A note in Redmine 2.3.x structure!"
+    refute_nil draft
+    expect(draft.content[:notes]).to eq "A note in Redmine 2.3.x structure!"
   end
 
   it "should save draft for new issue" do
@@ -61,17 +61,17 @@ describe DraftsController do
                :issue => { :subject => "This is a totally new issue",
                            :description => "It has a description" },
               }
-    response.should be_success
+    expect(response).to be_success
     draft = Draft.find_for_issue(:element_id => 0, :user_id => 1)
-    assert_not_nil draft
-    draft.content.keys.should == ["issue", "notes"]
-    draft.content[:issue][:subject].should == "This is a totally new issue"
+    refute_nil draft
+    expect(draft.content.keys).to eq ["issue", "notes"]
+    expect(draft.content[:issue][:subject]).to eq "This is a totally new issue"
   end
 
   it "should clean draft after create" do
     User.current=User.find(1)
     Draft.create(:element_type => 'Issue', :element_id => 0, :user_id => 1)
-    assert_not_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
+    refute_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
     issue = Issue.new(:project_id => 1, :tracker_id => 1, :author_id => 1,
               :status_id => 1, :priority => IssuePriority.all.first,
               :subject => 'test_clean_after_draft_create',
@@ -83,7 +83,7 @@ describe DraftsController do
   it "should clean draft after update" do
     User.current = User.find(1)
     Draft.create(:element_type => 'Issue', :element_id => 1, :user_id => 1)
-    assert_not_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
+    refute_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
     Issue.find(1).save
     assert_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
   end

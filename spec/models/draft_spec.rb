@@ -8,7 +8,7 @@ describe "Draft" do
   end
 
   it "should nil content" do
-    Draft.new.content.should == Hash.new
+    expect(Draft.new.content).to eq Hash.new
   end
 
   it "should find for issue" do
