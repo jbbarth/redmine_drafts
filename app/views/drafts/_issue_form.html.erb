@@ -23,7 +23,7 @@ $(function() {
 
 <div id="draft-status" style="display:none;"></div>
 
-<% if User.current.logged? && @issue.new_record? && params[:issue].nil? %>
+<% if User.current.logged? && @issue.new_record? && params[:issue].nil? && @project.present? %>
   <% draft = Draft.find_for_issue(:element_id => 0, :user_id => User.current) %>
   <% if draft %>
     <div id="draft-pending">
