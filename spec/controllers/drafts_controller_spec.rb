@@ -76,8 +76,8 @@ describe DraftsController, :type => :controller do
               :status_id => 1, :priority => IssuePriority.all.first,
               :subject => 'test_clean_after_draft_create',
               :description => 'Draft cleaning after_create')
-    assert issue.save
-    assert_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
+    expect(issue.save).to be_truthy
+    expect(Draft.find_for_issue(:element_id => 0, :user_id => 1)).to be_nil
   end
 
   it "should clean draft after update" do
@@ -85,6 +85,6 @@ describe DraftsController, :type => :controller do
     Draft.create(:element_type => 'Issue', :element_id => 1, :user_id => 1)
     refute_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
     Issue.find(1).save
-    assert_nil Draft.find_for_issue(:element_id => 1, :user_id => 1)
+    expect(Draft.find_for_issue(:element_id => 1, :user_id => 1)).to be_nil
   end
 end

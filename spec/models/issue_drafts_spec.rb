@@ -12,7 +12,7 @@ describe "IssueDrafts" do
     assert Draft.find_or_create_for_issue(conds).is_a?(Draft)
     refute_nil Draft.find_for_issue(conds)
     assert issue.save
-    assert_nil Draft.find_for_issue(conds)
+    expect(Draft.find_for_issue(conds)).to be_nil
   end
 
   it "should clean drafts on update" do
@@ -23,6 +23,6 @@ describe "IssueDrafts" do
     refute_nil Draft.find_for_issue(conds)
     issue.subject = "Another wonderful subject"
     issue.save
-    assert_nil Draft.find_for_issue(conds)
+    expect(Draft.find_for_issue(conds)).to be_nil
   end
 end

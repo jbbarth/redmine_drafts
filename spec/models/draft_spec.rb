@@ -16,7 +16,7 @@ describe "Draft" do
   end
 
   it "should find or create for issue" do
-    assert_nil Draft.find_for_issue(:element_id => 3, :user_id => 1)
+    expect(Draft.find_for_issue(:element_id => 3, :user_id => 1)).to be_nil
     draft = Draft.find_or_create_for_issue(:element_id => 3, :user_id => 1)
     assert draft.is_a?(Draft)
     assert draft.valid?
