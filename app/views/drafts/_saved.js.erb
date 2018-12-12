@@ -1,6 +1,6 @@
 var $status = $("#draft-status")
 var first_save = $status.is(":empty")
-$status.html("<%= l(:label_draft_saved_time, @draft.updated_at.strftime("%H:%M:%S")) %>")
+$status.html("<%= l(:label_draft_saved_time, @draft.updated_at.localtime.strftime("%H:%M:%S")) %>")
 if (first_save) {
   $status.effect("highlight")
 }
