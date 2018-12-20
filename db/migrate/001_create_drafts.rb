@@ -1,4 +1,4 @@
-class CreateDrafts < ActiveRecord::Migration
+class CreateDrafts < ActiveRecord::Migration[4.2]
   def self.up
     create_table :drafts do |t|
       t.column :element_type, :string

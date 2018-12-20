@@ -9,30 +9,28 @@ describe DraftsController, :type => :controller do
   end
 
   it "should anonymous user cannot autosave a draft" do
-    xhr :post, :autosave
+    post :autosave, xhr: true
     assert_response 401
   end
 
   it "should save draft for existing issue" do
     @request.session[:user_id] = 1
-    xhr :post, :autosave,
-              {:issue_id => 1,
+    post :autosave, params: {:issue_id => 1,
                :user_id => 1,
                :issue => { :subject => "Changed the subject" },
                :notes => "Just a first try to add a note"
-              }
-    expect(response).to be_success
+              }, xhr: true
+    expect(response).to be_successful
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     refute_nil draft
     expect(draft.content.keys.sort).to eq ["issue", "notes"]
     expect(draft.content[:issue][:subject]).to eq "Changed the subject"
 
-    xhr :post, :autosave,
-              {:issue_id => 1,
+    post :autosave, params: {:issue_id => 1,
                :notes => "Ok, let's change this note entirely and see if draft is duplicated",
                :user_id => 1,
                :issue => { :subject => "Changed the subject again !" }
-              }
+              }, xhr: true
     expect(Draft.where(:element_type => 'Issue', :element_id => 1, :user_id => 1).count).to eq 1
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     expect(draft.content[:issue][:subject]).to eq "Changed the subject again !"
@@ -40,14 +38,13 @@ describe DraftsController, :type => :controller do
 
   it "should save draft for existing issue with redmine 2 3 format" do
     @request.session[:user_id] = 1
-    xhr :post, :autosave,
-              { :issue_id => 1,
+    post :autosave, params: { :issue_id => 1,
                 :user_id => 1,
                 :issue => {
                   :notes => "A note in Redmine 2.3.x structure!"
                 }
-              }
-    expect(response).to be_success
+              }, xhr: true
+    expect(response).to be_successful
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     refute_nil draft
     expect(draft.content[:notes]).to eq "A note in Redmine 2.3.x structure!"
@@ -55,13 +52,12 @@ describe DraftsController, :type => :controller do
 
   it "should save draft for new issue" do
     @request.session[:user_id] = 1
-    xhr :post, :autosave,
-              {:issue_id => 0,
+    post :autosave, params: {:issue_id => 0,
                :user_id => 1,
                :issue => { :subject => "This is a totally new issue",
                            :description => "It has a description" },
-              }
-    expect(response).to be_success
+              }, xhr: true
+    expect(response).to be_successful
     draft = Draft.find_for_issue(:element_id => 0, :user_id => 1)
     refute_nil draft
     expect(draft.content.keys).to eq ["issue", "notes"]

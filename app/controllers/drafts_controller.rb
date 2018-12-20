@@ -1,7 +1,7 @@
 class DraftsController < ApplicationController
   unloadable
   
-  before_filter :require_login
+  before_action :require_login
 
   def autosave
     #Redmine 2.1.x had params[:notes] while Redmine 2.2.x moved it to
@@ -21,13 +21,13 @@ class DraftsController < ApplicationController
       unless @draft.content == new_content
         @draft.content = new_content
         if @draft.save
-          render :partial => "saved", :layout => false
+          render partial: "saved", layout: false
         else
-          render :text => "Error saving draft"
+          render text: "Error saving draft"
         end
       end
     end
-    render :nothing => true unless performed?
+    render nothing: true unless performed?
   end
 
   def restore

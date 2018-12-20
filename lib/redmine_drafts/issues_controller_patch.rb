@@ -1,7 +1,7 @@
 require_dependency 'issues_controller'
 
 class IssuesController
-  prepend_before_filter :set_draft
+  prepend_before_action :set_draft
 
   private
   def set_draft

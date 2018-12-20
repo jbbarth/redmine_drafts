@@ -1,6 +1,7 @@
 require_dependency 'issue'
 
-class Issue
+class Issue < ActiveRecord::Base
+
   has_many :drafts, :as => :element
 
   after_create :clean_drafts_after_create

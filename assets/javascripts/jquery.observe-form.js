@@ -5,14 +5,14 @@
  */
 $.fn.observe = function( time, callback ){
   return this.each(function(){
-    var form = this, changed = false;
+    var form = this, changed = false
     /* observe for changes */
     $(form.elements).change(function(){ changed = true })
     $(form).find('input,textarea').keyup(function(){ changed = true })
     /* call callback if needed */
     setInterval(function(){
-      if ( changed ) callback.call( form );
-      changed = false;
-    }, time * 1000);
-  });
-};
+      if ( changed ) callback.call( form )
+      changed = false
+    }, time * 1000)
+  })
+}

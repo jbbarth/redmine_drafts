@@ -1,10 +1,12 @@
 class Draft < ActiveRecord::Base
+  include Redmine::SafeAttributes
+
   belongs_to :user
   belongs_to :element, :polymorphic => true
 
   serialize :content
 
-  attr_accessible "user_id", "element_id", "element_type"
+  safe_attributes "user_id", "element_id", "element_type"
 
   def content
     hsh = read_attribute(:content) || Hash.new
