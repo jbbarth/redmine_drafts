@@ -1,10 +1,8 @@
 <% if User.current.logged? && !@issue.new_record? %>
   <% draft = Draft.find_for_issue(:element_id => @issue, :user_id => User.current) %>
   <% if draft %>
-    <tr>
-      <td colspan="4" id="draft-pending">
-        <%= render 'drafts/pending', :draft => draft %>
-      </td>
-    </tr>
+    <div id="draft-pending">
+      <%= render 'drafts/pending', :draft => draft %>
+    </div>
   <% end %>
 <% end %>
