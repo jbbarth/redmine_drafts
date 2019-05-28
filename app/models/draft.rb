@@ -8,6 +8,8 @@ class Draft < ActiveRecord::Base
 
   safe_attributes "user_id", "element_id", "element_type"
 
+  scope :old_drafts, -> {where('updated_at < ?', 2.years.ago)}
+
   def content
     hsh = read_attribute(:content) || Hash.new
     if hsh.present? && hsh.respond_to?(:to_hash)
@@ -27,5 +29,9 @@ class Draft < ActiveRecord::Base
 
   def self.find_or_create_for_issue(conditions)
     find_for_issue(conditions) || create(conditions.merge(:element_type => "Issue"))
+  end
+
+  def self.purge_older_drafts!
+    old_drafts.delete_all
   end
 end

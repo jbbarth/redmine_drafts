@@ -27,6 +27,7 @@ class DraftsController < ApplicationController
         end
       end
     end
+    Draft.purge_older_drafts!
     render nothing: true unless performed?
   end
 

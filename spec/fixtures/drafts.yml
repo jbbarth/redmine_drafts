@@ -10,3 +10,10 @@ two:
   element_id: 2
   user_id: 1
   content: MyText
+three:
+  id: 3
+  element_type: Issue
+  element_id: 2
+  user_id: 1
+  content: OldDraft
+  updated_at: 2015-02-12 15:08:27 +01:00

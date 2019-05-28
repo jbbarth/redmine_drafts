@@ -14,6 +14,8 @@ describe DraftsController, :type => :controller do
   end
 
   it "should save draft for existing issue" do
+    expect(Draft.old_drafts.count > 0).to be_truthy
+
     @request.session[:user_id] = 1
     post :autosave, params: {:issue_id => 1,
                :user_id => 1,
@@ -34,6 +36,8 @@ describe DraftsController, :type => :controller do
     expect(Draft.where(:element_type => 'Issue', :element_id => 1, :user_id => 1).count).to eq 1
     draft = Draft.find_for_issue(:element_id => 1, :user_id => 1)
     expect(draft.content[:issue][:subject]).to eq "Changed the subject again !"
+
+    expect(Draft.old_drafts.count).to eq 0
   end
 
   it "should save draft for existing issue with redmine 2 3 format" do
