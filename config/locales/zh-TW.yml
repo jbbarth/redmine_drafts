@@ -1,0 +1,6 @@
+# English strings go here for Rails i18n
+zh-TW:
+  label_draft_saved_time: "草稿已在 %{value} 時暫存！"
+  label_draft_pending: "您有一份 %{time} 前暫存的草稿，要 %{restore} 還是 %{delete} 嗎？"
+  label_draft_restore: "復原"
+  label_draft_delete: "刪除"
