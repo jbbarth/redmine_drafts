@@ -16,4 +16,5 @@ Redmine::Plugin.register :redmine_drafts do
   author_url 'mailto:jeanbaptiste.barth@gmail.com'
   requires_redmine :version_or_higher => '2.1.0'
   requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.4' if Rails.env.test?
+  requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
 end

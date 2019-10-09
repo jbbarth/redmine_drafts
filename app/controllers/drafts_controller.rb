@@ -28,7 +28,7 @@ class DraftsController < ApplicationController
       end
     end
     Draft.purge_older_drafts!
-    render nothing: true unless performed?
+    return head :ok unless performed?
   end
 
   def restore
