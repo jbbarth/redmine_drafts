@@ -13,6 +13,19 @@ Then :
 * run the migrations and copy assets, from your redmine root directory with the command : `RAILS_ENV=production rake redmine:plugins`
 * restart your Redmine instance (depends on how you host it)
 
+## Test status
+
+|Plugin branch| Redmine Version   | Test Status       |
+|-------------|-------------------|-------------------|
+|master       | master            | [![Build1][1]][5] |  
+|master       | 4.1.0             | [![Build1][2]][5] |  
+|master       | 4.0.6             | [![Build2][3]][5] |
+
+[1]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_drafts/branches/master/1
+[2]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_drafts/branches/master/2
+[3]: https://travis-matrix-badges.herokuapp.com/repos/jbbarth/redmine_drafts/branches/master/3
+[5]: https://travis-ci.com/jbbarth/redmine_drafts
+
 ## Contribute
 
 If you like this plugin, it's a good idea to contribute :
