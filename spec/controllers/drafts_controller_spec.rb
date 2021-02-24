@@ -73,7 +73,7 @@ describe DraftsController, :type => :controller do
     Draft.create(:element_type => 'Issue', :element_id => 0, :user_id => 1)
     refute_nil Draft.find_for_issue(:element_id => 0, :user_id => 1)
     issue = Issue.new(:project_id => 1, :tracker_id => 1, :author_id => 1,
-              :status_id => 1, :priority => IssuePriority.all.first,
+              :status_id => 1, :priority => IssuePriority.first,
               :subject => 'test_clean_after_draft_create',
               :description => 'Draft cleaning after_create')
     expect(issue.save).to be_truthy
