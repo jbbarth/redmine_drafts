@@ -1,8 +1,8 @@
-name: Tests master
+name: Tests 4.0.8
 
 env:
   PLUGIN_NAME: redmine_drafts
-  REDMINE_VERSION: master
+  REDMINE_VERSION: 4.0.8
   RAILS_ENV: test
 
 on:

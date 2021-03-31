@@ -1,8 +1,8 @@
-name: Tests 4.0.7
+name: Tests 4.2.0
 
 env:
   PLUGIN_NAME: redmine_drafts
-  REDMINE_VERSION: 4.0.7
+  REDMINE_VERSION: 4.2.0
   RAILS_ENV: test
 
 on:
@@ -54,6 +54,7 @@ jobs:
           libicu-dev
           libpq-dev
           ghostscript
+          gsfonts
 
       - name: Set up chromedriver
         uses: nanasess/setup-chromedriver@master
