@@ -15,7 +15,9 @@ module RedmineDrafts
 
     # Add our css/js on each page
     def view_layouts_base_html_head(context)
-      javascript_include_tag('jquery.observe-form.js', :plugin => 'redmine_drafts')
+      stylesheet_link_tag("drafts", :plugin => "redmine_drafts") +
+        javascript_include_tag('jquery.observe-form.js', :plugin => 'redmine_drafts')
     end
+
   end
 end
