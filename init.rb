@@ -4,6 +4,7 @@ require 'redmine_drafts/hooks'
 
 ActiveSupport::Reloader.to_prepare do
   require_dependency 'redmine_drafts/issue_patch'
+  require_dependency 'redmine_drafts/user_patch'
   require_dependency 'redmine_drafts/issues_controller_patch'
 end
 
