@@ -19,5 +19,12 @@ module RedmineDrafts
         javascript_include_tag('jquery.observe-form.js', :plugin => 'redmine_drafts')
     end
 
+    class ModelHook < Redmine::Hook::Listener
+      def after_plugins_loaded(_context = {})
+        require_relative 'issue_patch'
+        require_relative 'issues_controller_patch'
+      end
+    end
+
   end
 end

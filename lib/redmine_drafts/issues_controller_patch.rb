@@ -1,17 +1,21 @@
 require_dependency 'issues_controller'
 
-class IssuesController
-  prepend_before_action :set_draft
-
-  private
+module RedmineDrafts::IssuesControllerPatch
   def set_draft
-    if params[:draft_id]
+    if params[:draft_id].present?
       draft = Draft.find(params[:draft_id]) rescue nil
-      if draft
+      if draft.present?
         params.merge!(draft.content.permit!)
       end
     end
-    true
   end
+end
+
+class IssuesController
+
+  include RedmineDrafts::IssuesControllerPatch
+
+  prepend_before_action :set_draft, :only => [:new, :edit]
+
 end
 

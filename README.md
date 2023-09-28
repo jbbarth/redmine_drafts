@@ -15,11 +15,11 @@ Then :
 
 ## Test status
 
-|Plugin branch| Redmine Version   | Test Status      |
-|-------------|-------------------|------------------|
-|master       | 4.2.10            | [![4.2.10][1]][5]|  
-|master       | 4.1.7             | [![4.1.7][2]][5] |
-|master       | master            | [![master][4]][5]|
+|Plugin branch| Redmine Version | Test Status       |
+|-------------|-----------------|-------------------|
+|master       | 4.2.10          | [![4.2.10][1]][5] |
+|master       | 5.0.5           | [![5.0.5][2]][5]  |
+|master       | master          | [![master][4]][5] |
 
 [1]: https://github.com/jbbarth/redmine_drafts/actions/workflows/4_2_10.yml/badge.svg
 [2]: https://github.com/jbbarth/redmine_drafts/actions/workflows/4_1_7.yml/badge.svg
