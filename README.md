@@ -22,7 +22,7 @@ Then :
 |master       | master          | [![master][4]][5] |
 
 [1]: https://github.com/jbbarth/redmine_drafts/actions/workflows/4_2_10.yml/badge.svg
-[2]: https://github.com/jbbarth/redmine_drafts/actions/workflows/4_1_7.yml/badge.svg
+[2]: https://github.com/jbbarth/redmine_drafts/actions/workflows/5_0_5.yml/badge.svg
 [4]: https://github.com/jbbarth/redmine_drafts/actions/workflows/master.yml/badge.svg
 [5]: https://github.com/jbbarth/redmine_drafts/actions
 
