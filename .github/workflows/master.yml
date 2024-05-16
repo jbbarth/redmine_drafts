@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['2.7']
+        ruby: ['3.2']
         db: ['postgres']
       fail-fast: false
 
