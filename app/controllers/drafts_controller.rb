@@ -1,5 +1,4 @@
 class DraftsController < ApplicationController
-  unloadable
   
   before_action :require_login
 

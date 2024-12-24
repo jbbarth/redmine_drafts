@@ -11,7 +11,7 @@ module RedmineDrafts::IssuePatch
   end
 end
 
-class Issue < ActiveRecord::Base
+class Issue
 
   include RedmineDrafts::IssuePatch
 
