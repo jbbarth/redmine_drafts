@@ -4,3 +4,4 @@ en:
   label_draft_pending: "Draft pending, saved %{time} ago : %{restore} or %{delete}"
   label_draft_restore: "restore"
   label_draft_delete: "delete"
+  label_save_draft: "Save draft"

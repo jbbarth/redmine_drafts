@@ -7,16 +7,25 @@
 $(function() {
   //ensure draft status div is at the bottom of the fieldset
   $("#draft-status").appendTo($("#draft-status").closest("fieldset"))
-  //observe changed on the form
-  $("#issue-form").observe(60, function() {
+
+  function saveDraft() {
     $.ajax({
       url: "<%= autosave_drafts_path(:issue_id => @issue.id) %>",
       dataType: "script",
       type: "PUT",
-      data: $(this).serialize(),
+      data: $("#issue-form").serialize(),
       global: false //no 'loading...' tooltip
-    })
-  })
+    });
+  }
+
+  //observe changed on the form
+  $("#issue-form").observe(60, saveDraft);
+
+  // Handle save draft button
+  $(".save-draft-button").on("click", (e)=>{
+    e.preventDefault();
+    saveDraft();
+  });
 })
 </script>
 <% end %>

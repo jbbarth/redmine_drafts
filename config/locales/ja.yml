@@ -4,3 +4,4 @@ ja:
   label_draft_pending: "%{time}前に保存されたドラフトがあります。 : %{restore} or %{delete}"
   label_draft_restore: "復旧"
   label_draft_delete: "削除"
+  label_save_draft: "ドラフトを保存"
