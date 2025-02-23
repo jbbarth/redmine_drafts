@@ -1,1 +1,13 @@
 #draft-status, #draft-pending { padding:5px; color:#900; text-align:center; }
+button.save-draft-button {
+    height: 28px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 100ms linear;
+    padding-left: 25px;
+    background-position: 5px 50%;
+}
+
+button.save-draft-button:hover {
+    background-color: #ddd;
+}

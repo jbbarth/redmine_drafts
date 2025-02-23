@@ -1,5 +1,5 @@
 class DraftsController < ApplicationController
-  
+
   before_action :require_login
 
   def autosave
@@ -10,7 +10,8 @@ class DraftsController < ApplicationController
     params[:notes] = params[:issue][:notes] if params[:notes].blank?
     params[:issue][:notes] = params[:notes] if params[:issue][:notes].blank?
     #decide whether the record should be saved
-    has_to_be_saved = !params[:notes].blank?
+    has_to_be_saved = params[:force] === "true"
+    has_to_be_saved ||= !params[:notes].blank?
     has_to_be_saved ||= (params[:issue_id].to_i == 0 && !params[:issue][:subject].blank?)
     #if so, save it!
     if request.xhr? && has_to_be_saved
@@ -38,7 +39,7 @@ class DraftsController < ApplicationController
       redirect_to({:controller => "issues", :action => "edit", :id => @draft.element_id, :draft_id => @draft})
     end
   end
-  
+
   def destroy
     @draft = Draft.find_by_id(params[:id])
     @draft.destroy if @draft.present?
