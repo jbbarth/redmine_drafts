@@ -4,3 +4,6 @@ en:
   label_draft_pending: "Draft pending, saved %{time} ago : %{restore} or %{delete}"
   label_draft_restore: "restore"
   label_draft_delete: "delete"
+  message_failed_to_restore_attachment:
+    one: "Failed to restore 1 attachment."
+    other: "Failed to restore some attachments (%{count} files)."
