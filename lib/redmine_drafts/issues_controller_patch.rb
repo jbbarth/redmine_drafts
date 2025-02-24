@@ -5,7 +5,8 @@ module RedmineDrafts::IssuesControllerPatch
     if params[:draft_id].present?
       draft = Draft.find(params[:draft_id]) rescue nil
       if draft.present?
-        @draft_attachments = prepare_draft_attachments(draft.content["attachments"].permit!.to_h)
+        attachment_params = draft.content["attachments"]
+        @draft_attachments = prepare_draft_attachments(attachment_params.permit!.to_h) if attachment_params.present?
         params.merge!(draft.content.reject{|k,v| k == "attachments"}.permit!)
       end
     end
