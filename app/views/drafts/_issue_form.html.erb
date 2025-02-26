@@ -19,6 +19,31 @@ $(function() {
   })
 })
 </script>
+<% if @draft_attachments %>
+  <script>
+    $(() => {
+      const attachmentInput = $("#new-attachments input[type=file]");
+      if (!attachmentInput.length) return;
+
+      const draftAttachments = <%= raw @draft_attachments.to_json %>;
+      draftAttachments.forEach((attachment) => {
+        if (!attachment) return;
+
+        restoreDraftFile(
+          attachmentInput,
+          attachment.filename,
+          attachment.description,
+          attachment.token,
+          attachment.path
+        );
+      });
+
+      <% if @failed_draft_attachments_count > 0 %>
+        alert("<%= l(:message_failed_to_restore_attachment, count: @failed_draft_attachments_count) %>");
+      <% end %>
+    });
+  </script>
+<% end %>
 <% end %>
 
 <div id="draft-status" style="display:none;"></div>
