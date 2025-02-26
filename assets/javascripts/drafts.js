@@ -5,7 +5,7 @@ const addAttachment = $(inputEl).closest('.attachments_form').find('.add_attachm
 const maxFiles = ($(inputEl).attr('multiple') == 'multiple' ? 10 : 1);
 
 const attachmentId = restoreDraftFile.nextAttachmentId++;
-addFile.nextAttachmentId = attachmentId;
+addFile.nextAttachmentId = attachmentId + 1;
 
 const fileSpan = $('<span>', { id: 'attachments_' + attachmentId });
 let param = $(inputEl).data('param');
