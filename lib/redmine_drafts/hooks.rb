@@ -2,7 +2,7 @@ module RedmineDrafts
   class Hooks < Redmine::Hook::ViewListener
     # Add our own elements to issue show view (in show and form sections)
     #
-    # NB: This works too, maybe for future use if we have many things to 
+    # NB: This works too, maybe for future use if we have many things to
     # do before rendering :
     #
     #   def view_issues_form_details_bottom(context)
@@ -16,7 +16,8 @@ module RedmineDrafts
     # Add our css/js on each page
     def view_layouts_base_html_head(context)
       stylesheet_link_tag("drafts", :plugin => "redmine_drafts") +
-        javascript_include_tag('jquery.observe-form.js', :plugin => 'redmine_drafts')
+        javascript_include_tag('jquery.observe-form.js', :plugin => 'redmine_drafts') +
+        javascript_include_tag('drafts.js', :plugin => 'redmine_drafts')
     end
 
     class ModelHook < Redmine::Hook::Listener
