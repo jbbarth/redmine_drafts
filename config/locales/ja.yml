@@ -4,3 +4,6 @@ ja:
   label_draft_pending: "%{time}前に保存されたドラフトがあります。 : %{restore} or %{delete}"
   label_draft_restore: "復旧"
   label_draft_delete: "削除"
+  message_failed_to_restore_attachment:
+    one: "1件の添付ファイルの復旧に失敗しました。"
+    other: "一部の添付ファイル (%{count} 件) の復旧に失敗しました。"
