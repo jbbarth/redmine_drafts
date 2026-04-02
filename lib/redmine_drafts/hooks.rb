@@ -23,6 +23,7 @@ module RedmineDrafts
       def after_plugins_loaded(_context = {})
         require_relative 'issue_patch'
         require_relative 'issues_controller_patch'
+        require_relative 'user_patch'
       end
     end
 
