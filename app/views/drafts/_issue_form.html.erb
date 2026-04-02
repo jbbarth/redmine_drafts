@@ -3,22 +3,100 @@
 <% end %>
 
 <% if User.current.logged? %>
-<script>
-$(function() {
-  //ensure draft status div is at the bottom of the fieldset
-  $("#draft-status").appendTo($("#draft-status").closest("fieldset"))
-  //observe changed on the form
-  $("#issue-form").observe(60, function() {
-    $.ajax({
-      url: "<%= autosave_drafts_path(:issue_id => @issue.id) %>",
-      dataType: "script",
-      type: "PUT",
-      data: $(this).serialize(),
-      global: false //no 'loading...' tooltip
-    })
-  })
-})
-</script>
+  <script>
+      var DRAFT_LS_KEY = 'redmine_draft_issue_<%= @issue.id %>';
+      var ISSUE_UPDATED_AT = <%= @issue.new_record? ? 0 : @issue.updated_on.to_i %>;
+
+      function saveLocalDraft() {
+          var notes = document.getElementById('issue_notes');
+          if (notes && notes.value.trim()) {
+              localStorage.setItem(DRAFT_LS_KEY, JSON.stringify({
+                  notes: notes.value,
+                  savedAt: new Date().toISOString()
+              }));
+          }
+      }
+
+      // Auto-save notes to localStorage on every keystroke
+      var notesEl = document.getElementById('issue_notes');
+      if (notesEl) {
+          notesEl.addEventListener('input', saveLocalDraft);
+      }
+
+      $(function () {
+          // Mark draft as "submitting" on form submit so we can distinguish a successful
+          // submission from a failed one (e.g. session expired) on the next page load.
+          $('#issue-form').on('submit', function () {
+              try {
+                  var saved = localStorage.getItem(DRAFT_LS_KEY);
+                  if (saved) {
+                      var d = JSON.parse(saved);
+                      d.submitting = true;
+                      localStorage.setItem(DRAFT_LS_KEY, JSON.stringify(d));
+                  }
+              } catch (e) {
+              }
+          });
+
+          // Restore localStorage notes, unless a prior submission succeeded.
+          // A submission is considered successful when submitting=true AND the issue was
+          // updated after the draft was saved (i.e. our POST went through).
+          // In all other cases (no submit attempted, or submit failed), restore the notes.
+          try {
+              var saved = localStorage.getItem(DRAFT_LS_KEY);
+              if (saved) {
+                  var localDraft = JSON.parse(saved);
+                  var submittedSuccessfully = localDraft.submitting &&
+                      new Date(localDraft.savedAt).getTime() <= ISSUE_UPDATED_AT * 1000;
+
+                  if (submittedSuccessfully) {
+                      // Submission succeeded, remove draft
+                      localStorage.removeItem(DRAFT_LS_KEY);
+                  } else {
+                      if (localDraft.submitting) {
+                          // Submission failed — clear the flag for next time
+                          localDraft.submitting = false;
+                          localStorage.setItem(DRAFT_LS_KEY, JSON.stringify(localDraft));
+                      }
+                      var notes = document.getElementById('issue_notes');
+                      if (notes && localDraft.notes && localDraft.notes !== notes.value) {
+                          notes.value = localDraft.notes;
+                          var d = new Date(localDraft.savedAt);
+                          var savedAt = d.toDateString() === new Date().toDateString()
+                              ? d.toLocaleTimeString() : d.toLocaleString();
+                          var $status = $('#draft-status');
+                          $status.html('<%= j l(:label_draft_local_restored) %>'.replace('%{time}', savedAt));
+                          $status.show().effect('highlight');
+                      }
+                  }
+              }
+          } catch (e) {
+          }
+
+          // Ensure draft-status div is at the bottom of the fieldset
+          $('#draft-status').appendTo($('#draft-status').closest('fieldset'));
+
+          // Observe form changes and autosave to server every 60s
+          $('#issue-form').observe(60, function () {
+              $.ajax({
+                  url: '<%= autosave_drafts_path(:issue_id => @issue.id) %>',
+                  dataType: 'script',
+                  type: 'PUT',
+                  data: $(this).serialize(),
+                  global: false //no 'loading...' tooltip
+              }).fail(function (xhr) {
+                  if (xhr.status === 401 || xhr.status === 403 || xhr.status === 422) {
+                      saveLocalDraft();
+                      if (!$('#draft-session-warning').length) {
+                          $('<div id="draft-session-warning" class="flash warning">' +
+                              '<%= j l(:notice_draft_session_expired) %>' +
+                              '</div>').prependTo('#content');
+                      }
+                  }
+              });
+          });
+      });
+  </script>
 <% end %>
 
 <div id="draft-status" style="display:none;"></div>
