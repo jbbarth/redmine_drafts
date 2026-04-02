@@ -12,9 +12,9 @@ describe "drafts/_issue_form", :type => :view do
     User.current = User.find(2) # a logged-in user
   end
 
-  it "renders the localStorage draft key with the issue id" do
+  it "renders the localStorage draft key scoped by user and issue" do
     render partial: "drafts/issue_form"
-    expect(rendered).to include("redmine_draft_issue_#{@issue.id}")
+    expect(rendered).to include("redmine_draft_issue_#{User.current.id}_#{@issue.id}")
   end
 
   it "renders the saveLocalDraft function targeting issue_notes" do
@@ -24,11 +24,13 @@ describe "drafts/_issue_form", :type => :view do
     expect(rendered).to include("issue_notes")
   end
 
-  it "renders auto-restore logic on page load" do
+  it "renders auto-restore logic with clear link on page load" do
     render partial: "drafts/issue_form"
     expect(rendered).to include("localStorage.getItem")
     expect(rendered).to include("draft-status")
     expect(rendered).to include("localDraft.notes !== notes.value")
+    expect(rendered).to include("draft-local-clear")
+    expect(rendered).to include("localStorage.removeItem(DRAFT_LS_KEY)")
   end
 
   it "renders the submit flag and timestamp for submission detection" do

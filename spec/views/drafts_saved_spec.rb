@@ -10,9 +10,10 @@ describe "drafts/_saved", :type => :view do
     @draft = Draft.find(1) # element_id: 1 in fixtures
   end
 
-  it "renders localStorage.removeItem with the correct draft key" do
+  it "renders localStorage.removeItem with the user-scoped draft key" do
+    User.current = User.find(1)
     render partial: "drafts/saved"
     expect(rendered).to include("localStorage.removeItem")
-    expect(rendered).to include("redmine_draft_issue_#{@draft.element_id}")
+    expect(rendered).to include("redmine_draft_issue_#{User.current.id}_#{@draft.element_id}")
   end
 end

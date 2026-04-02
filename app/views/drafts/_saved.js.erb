@@ -9,4 +9,4 @@ if ($status.is(":empty")) {
 }
 //hide any previous "draft-pending" div
 $("#draft-pending").hide()
-localStorage.removeItem("redmine_draft_issue_<%= @draft.element_id %>");
+localStorage.removeItem("redmine_draft_issue_<%= User.current.id %>_<%= @draft.element_id %>");

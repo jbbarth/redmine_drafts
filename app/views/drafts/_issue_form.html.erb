@@ -4,7 +4,7 @@
 
 <% if User.current.logged? %>
   <script>
-      var DRAFT_LS_KEY = 'redmine_draft_issue_<%= @issue.id %>';
+      var DRAFT_LS_KEY = 'redmine_draft_issue_<%= User.current.id %>_<%= @issue.id %>';
       var ISSUE_UPDATED_AT = <%= @issue.new_record? ? 0 : @issue.updated_on.to_i %>;
 
       function saveLocalDraft() {
@@ -65,8 +65,17 @@
                           var savedAt = d.toDateString() === new Date().toDateString()
                               ? d.toLocaleTimeString() : d.toLocaleString();
                           var $status = $('#draft-status');
-                          $status.html('<%= j l(:label_draft_local_restored) %>'.replace('%{time}', savedAt));
+                          $status.html(
+                              '<%= j l(:label_draft_local_restored) %>'.replace('%{time}', savedAt) +
+                              ' <a href="#" id="draft-local-clear"><%= j l(:label_draft_local_clear) %></a>'
+                          );
                           $status.show().effect('highlight');
+                          $('#draft-local-clear').on('click', function (e) {
+                              e.preventDefault();
+                              localStorage.removeItem(DRAFT_LS_KEY);
+                              document.getElementById('issue_notes').value = '';
+                              $status.hide();
+                          });
                       }
                   }
               }

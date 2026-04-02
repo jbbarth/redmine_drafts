@@ -5,4 +5,5 @@ en:
   label_draft_restore: "restore"
   label_draft_delete: "delete"
   notice_draft_session_expired: "Your session has expired. Your notes have been saved locally and will be restored when you return."
-  label_draft_local_restored: "Local notes restored (saved at %{time})"
+  label_draft_local_restored: "Local notes restored (saved at %{time}) —"
+  label_draft_local_clear: "clear"
