@@ -42,15 +42,18 @@
           // A submission is considered successful when submitting=true AND the issue was
           // updated after the draft was saved (i.e. our POST went through).
           // In all other cases (no submit attempted, or submit failed), restore the notes.
+          var DRAFT_TTL = 24 * 60 * 60 * 1000; // 24 hours
+
           try {
               var saved = localStorage.getItem(DRAFT_LS_KEY);
               if (saved) {
                   var localDraft = JSON.parse(saved);
+                  var draftAge = Date.now() - new Date(localDraft.savedAt).getTime();
                   var submittedSuccessfully = localDraft.submitting &&
                       new Date(localDraft.savedAt).getTime() <= ISSUE_UPDATED_AT * 1000;
 
-                  if (submittedSuccessfully) {
-                      // Submission succeeded, remove draft
+                  if (submittedSuccessfully || draftAge > DRAFT_TTL) {
+                      // Submission succeeded or draft expired
                       localStorage.removeItem(DRAFT_LS_KEY);
                   } else {
                       if (localDraft.submitting) {
