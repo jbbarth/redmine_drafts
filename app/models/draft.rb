@@ -4,7 +4,7 @@ class Draft < ActiveRecord::Base
   belongs_to :user
   belongs_to :element, :polymorphic => true
 
-  serialize :content
+  serialize :content, coder: YAML
 
   safe_attributes "user_id", "element_id", "element_type"
 

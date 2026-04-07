@@ -22,7 +22,7 @@ class DraftsController < ApplicationController
         if @draft.save
           render partial: "saved", layout: false
         else
-          render text: "Error saving draft"
+          render plain: "Error saving draft"
         end
       end
     end

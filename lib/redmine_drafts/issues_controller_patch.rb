@@ -1,5 +1,3 @@
-require_dependency 'issues_controller'
-
 module RedmineDrafts::IssuesControllerPatch
   def set_draft
     if params[:draft_id].present?
