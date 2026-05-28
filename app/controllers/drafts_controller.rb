@@ -31,16 +31,16 @@ class DraftsController < ApplicationController
   end
 
   def restore
-    @draft = Draft.find_by_id(params[:id])
+    @draft = User.current.drafts.find_by(id: params[:id])
     if @draft.blank? || @draft.element_id == 0
       redirect_to({:controller => "issues", :action => "new", :project_id => params[:project_id].to_i, :draft_id => @draft})
     else
       redirect_to({:controller => "issues", :action => "edit", :id => @draft.element_id, :draft_id => @draft})
     end
   end
-  
+
   def destroy
-    @draft = Draft.find_by_id(params[:id])
+    @draft = User.current.drafts.find_by(id: params[:id])
     @draft.destroy if @draft.present?
     respond_to do |format|
        format.js

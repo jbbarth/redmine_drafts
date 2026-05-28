@@ -95,4 +95,28 @@ describe DraftsController, :type => :controller do
     Issue.find(1).save
     expect(Draft.find_for_issue(:element_id => 1, :user_id => 1)).to be_nil
   end
+
+  describe "ownership enforcement" do
+    it "refuses to delete another user's draft" do
+      # draft id 1 belongs to user 1; user 2 must not be able to delete it
+      @request.session[:user_id] = 2
+      expect {
+        delete :destroy, params: { id: 1 }, xhr: true
+      }.not_to change { Draft.exists?(1) }.from(true)
+    end
+
+    it "deletes the current user's own draft" do
+      @request.session[:user_id] = 1
+      expect {
+        delete :destroy, params: { id: 1 }, xhr: true
+      }.to change { Draft.exists?(1) }.from(true).to(false)
+    end
+
+    it "ignores another user's draft when restoring" do
+      @request.session[:user_id] = 2
+      put :restore, params: { id: 1 }
+      # foreign draft is ignored -> @draft is nil, redirect carries no draft_id
+      expect(response).to redirect_to(controller: "issues", action: "new", project_id: 0, draft_id: nil)
+    end
+  end
 end

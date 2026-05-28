@@ -1,7 +1,7 @@
 module RedmineDrafts::IssuesControllerPatch
   def set_draft
     if params[:draft_id].present?
-      draft = Draft.find(params[:draft_id]) rescue nil
+      draft = User.current.drafts.find_by(id: params[:draft_id])
       if draft.present?
         params.merge!(draft.content.permit!)
       end
