@@ -1,8 +1,8 @@
-name: Tests 6.1.3
+name: Tests 6.1.4
 
 env:
   PLUGIN_NAME: redmine_drafts
-  REDMINE_VERSION: 6.1.3
+  REDMINE_VERSION: 6.1.4
   RAILS_ENV: test
 
 on:
@@ -137,6 +137,7 @@ jobs:
       - name: Run core tests
         env:
           RAILS_ENV: test
+          RUBYOPT: "-W0"
         working-directory: redmine
         run: bundle exec rails test
 
